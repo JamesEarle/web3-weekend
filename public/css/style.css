@@ -24,6 +24,14 @@ img {
   margin-top: 30px;
 }
 
+.highlight-container {
+  color: red;
+}
+
+.highlight-container:hover {
+  color: blue;
+}
+
 .nft-image{
   width: 150px;
   margin: 35px;

@@ -33,6 +33,8 @@ App = {
         const response = await fetch(request);
 
         const myJson = await response.json();
+        App.assets = myJson.assets; // make a k/v mapping?
+        console.log(App.assets)
 
         // console.log(myJson.assets)
         if (myJson.assets.length == 0) {
@@ -40,7 +42,7 @@ App = {
             // link to some places to buy NFTs
         }
 
-        App.processAssets(myJson.assets);
+        App.processAssets(App.assets);
     },
 
     processAssets: (assets) => {
@@ -51,29 +53,30 @@ App = {
             let asset = assets[i];
             
             let img = document.createElement("img");
-            img.id = asset.token_id;
+            img.id = asset.id;
             img.className = "nft-image";
             img.src = asset.image_thumbnail_url;
 
             let a = document.createElement("a");
-            a.href="/"
-            a.appendChild(img)
-            
-            let span = document.createElement("span")
-            span.textContent = asset.name;
+            a.href=`javascript:showStats(${asset.id})`
+            a.append(img)
 
-            let div = document.createElement("div")
-            div.appendChild(a)
-            div.appendChild(span)
-
-            imageTable.appendChild(div);
+            imageTable.append(a)
         }
     }
 }
 
-async function getAccount(){
-    const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
-    console.log(accounts[0]);
+function showStats(asset_id) {
+    for (let i = 0; i < App.assets.length; i++) {
+        let asset = App.assets[i];
+        if (asset.id == asset_id) {
+            console.log(asset.asset_contract.address)
+            console.log(asset.id)
+            console.log(asset.name)
+            console.log(asset.description)
+            console.log(asset.permalink)
+        }
+    }
 }
 
 window.onload = () => {
