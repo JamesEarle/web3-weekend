@@ -1,20 +1,10 @@
-body {
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+.theme-text {
+  font-style: italic;
+  font-family: auto;
+  font-size: large;
+  color: darkmagenta;
 }
-
-a {
-  color: #00B7FF;
-}
-
-a.nav-link {
-  font-size: x-large;
-}
-
-img {
-  width: 150px;
-}
-
-.banner-image {
+/* .banner-image {
   width: 40px;
 }
 
@@ -35,4 +25,4 @@ img {
 .nft-image{
   width: 150px;
   margin: 35px;
-}
+} */

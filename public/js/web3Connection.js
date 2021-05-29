@@ -17,19 +17,42 @@ App = {
 
     bindEvents: () => {
         // Bind any web3 related events
-        button = document.getElementById("connect");
-        button.onclick = async() => {
-            //ethereum.request({ method: 'eth_requestAccounts' });
-            await ethereum.request({ method: 'eth_requestAccounts' });
-            console.log(ethereum.selectedAddress);
-            button.textContent = ethereum.selectedAddress;
+        let link = document.getElementById("connect-link");
+        let addr = document.getElementById("address");
 
-            App.makeRequest(ethereum.selectedAddress);
+        ethereum.on("accountsChanged", (accounts) => {
+            // Reconnect and reload NFT data for account address
+            console.log("Change accounts event fired");
+            console.log(accounts);
+            localStorage.clear();
+            ethereum.selectedAddress = null;
+            addr.textContent = "";
+
+            // Get rid of any loaded NFT data from a different address
+            let imageTable = document.getElementById('image-table');
+            if (imageTable) imageTable.innerHTML = "";
+        });
+
+        if (localStorage["address"]) {
+            console.log(`${localStorage["address"]}`)
+            addr.textContent = localStorage["address"];
+            // App.makeRequest(localStorage["address"]);
+        } else {
+            link.onclick = async() => {
+                console.log("click")
+                await ethereum.request({ method: 'eth_requestAccounts' });
+                console.log(ethereum.selectedAddress);
+                
+                // Show address visually
+                localStorage["address"] = ethereum.selectedAddress
+                addr.textContent = ethereum.selectedAddress;
+                // App.makeRequest(ethereum.selectedAddress);
+            }
         }
     },
 
     makeRequest: async (address) => {
-        const request = "https://api.opensea.io/api/v1/assets?owner=0x974A344968786201A5f2E282014098f1333aA73b";
+        const request = `https://api.opensea.io/api/v1/assets?owner=${address}`;
         const response = await fetch(request);
 
         const myJson = await response.json();
@@ -61,7 +84,7 @@ App = {
             a.href=`javascript:showStats(${asset.id})`
             a.append(img)
 
-            imageTable.append(a)
+            imageTable.append(a) // error
         }
     }
 }
