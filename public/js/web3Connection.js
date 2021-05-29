@@ -1,9 +1,7 @@
-// const express = require("express");
-
 App = {
     web3: null,
     web3Provider: null,
-    contracts: {},
+    assets: null,
 
     init: () => {
         // Establish web3 connection
@@ -26,30 +24,49 @@ App = {
             console.log(ethereum.selectedAddress);
             button.textContent = ethereum.selectedAddress;
 
-            App.processAssets(ethereum.selectedAddress);
+            App.makeRequest(ethereum.selectedAddress);
         }
     },
 
-    processAssets: async (address) => {
+    makeRequest: async (address) => {
         const request = "https://api.opensea.io/api/v1/assets?owner=0x974A344968786201A5f2E282014098f1333aA73b";
         const response = await fetch(request);
 
         const myJson = await response.json();
 
-        var imgContainer = document.getElementById('image-table');
-
+        // console.log(myJson.assets)
         if (myJson.assets.length == 0) {
             // case when no NFTs yet
             // link to some places to buy NFTs
         }
 
+        App.processAssets(myJson.assets);
+    },
+
+    processAssets: (assets) => {
+        var imageTable = document.getElementById('image-table');
+
         // Otherwise, create image
-        for (var i = 0; i < myJson.assets.length; i++) {
-            // Format with some CSS to be nice and uniform
-            var img = document.createElement("img");
+        for (let i = 0; i < assets.length; i++) {
+            let asset = assets[i];
+            
+            let img = document.createElement("img");
+            img.id = asset.token_id;
             img.className = "nft-image";
-            img.src = myJson.assets[i].image_thumbnail_url;
-            imgContainer.appendChild(img);
+            img.src = asset.image_thumbnail_url;
+
+            let a = document.createElement("a");
+            a.href="/"
+            a.appendChild(img)
+            
+            let span = document.createElement("span")
+            span.textContent = asset.name;
+
+            let div = document.createElement("div")
+            div.appendChild(a)
+            div.appendChild(span)
+
+            imageTable.appendChild(div);
         }
     }
 }
@@ -60,6 +77,7 @@ async function getAccount(){
 }
 
 window.onload = () => {
+    // If a user has connected before, don't bother again
     App.init();
     App.bindEvents();
 }
