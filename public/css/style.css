@@ -1,5 +1,4 @@
 body {
-  padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
@@ -7,7 +6,25 @@ a {
   color: #00B7FF;
 }
 
+a.nav-link {
+  font-size: x-large;
+}
+
+img {
+  width: 150px;
+}
+
+.banner-image {
+  width: 40px;
+}
+
+.content {
+  margin-left: 100px;
+  margin-right: 100px;
+  margin-top: 30px;
+}
+
 .nft-image{
-  width:150px;
-  height: 150px;
+  width: 150px;
+  margin: 35px;
 }

@@ -19,26 +19,39 @@ App = {
 
     bindEvents: () => {
         // Bind any web3 related events
-        elem = document.getElementById("connect");
-        elem.onclick = async() => {
+        button = document.getElementById("connect");
+        button.onclick = async() => {
             //ethereum.request({ method: 'eth_requestAccounts' });
             await ethereum.request({ method: 'eth_requestAccounts' });
             console.log(ethereum.selectedAddress);
-            elem.textContent = ethereum.selectedAddress;
-            //const apiRequest = "https://api.opensea.io/api/v1/assets?owner=" + ethereum.selectedAddress;
-            const apiRequest = "https://api.opensea.io/api/v1/assets?owner=0x974A344968786201A5f2E282014098f1333aA73b";
-            const response = await fetch(apiRequest);
-            const myJson = await response.json();
-            console.log(myJson);
-            var imageContainer = document.getElementById('image-container');
-            for (var i = 0; i<myJson.assets.length; i++){
-                var elemImage = document.createElement("IMG");
-                elemImage.src = myJson.assets[i].image_thumbnail_url;
-                imageContainer.appendChild(elemImage);
-            }
+            button.textContent = ethereum.selectedAddress;
+
+            App.processAssets(ethereum.selectedAddress);
+        }
+    },
+
+    processAssets: async (address) => {
+        const request = "https://api.opensea.io/api/v1/assets?owner=0x974A344968786201A5f2E282014098f1333aA73b";
+        const response = await fetch(request);
+
+        const myJson = await response.json();
+
+        var imgContainer = document.getElementById('image-table');
+
+        if (myJson.assets.length == 0) {
+            // case when no NFTs yet
+            // link to some places to buy NFTs
+        }
+
+        // Otherwise, create image
+        for (var i = 0; i < myJson.assets.length; i++) {
+            // Format with some CSS to be nice and uniform
+            var img = document.createElement("img");
+            img.className = "nft-image";
+            img.src = myJson.assets[i].image_thumbnail_url;
+            imgContainer.appendChild(img);
         }
     }
-
 }
 
 async function getAccount(){
