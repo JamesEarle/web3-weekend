@@ -39,11 +39,11 @@ App = {
             addr.textContent = localStorage["address"];
             App.makeRequest(localStorage["address"]);
         } else {
-            link.onclick = async () => {
+            link.onclick = async() => {
                 console.log("click");
                 ethereum.selectedAddress = await ethereum.request({ method: 'eth_requestAccounts' });
                 console.log(ethereum.selectedAddress);
-
+                
                 // Show address visually
                 localStorage["address"] = ethereum.selectedAddress
                 addr.textContent = ethereum.selectedAddress;
@@ -52,7 +52,7 @@ App = {
         }
 
         fetchModelsbutton = document.getElementById("fetchModels");
-        fetchModelsbutton.onclick = async () => {
+        fetchModelsbutton.onclick = async() => {
             dropshipConnection();
         }
     },
@@ -80,14 +80,14 @@ App = {
         // Otherwise, create image
         for (let i = 0; i < assets.length; i++) {
             let asset = assets[i];
-
+            
             let img = document.createElement("img");
             img.id = asset.id;
             img.className = "nft-image";
             img.src = asset.image_thumbnail_url;
 
             let a = document.createElement("a");
-            a.href = `javascript:showStats(${asset.id})`;
+            a.href=`javascript:showStats(${asset.id})`;
             a.append(img)
 
             imageList.appendChild(a) // error
@@ -95,26 +95,23 @@ App = {
     }
 }
 
-function dropshipConnection() {
+function dropshipConnection(){
     var myHeaders = new Headers();
-    // unencoded key ucdk02c6-xwgi-nb71:ej2m-nde0nv3zbnp1
-    myHeaders.append("Authorization", "Basic dWNkazAyYzYteHdnaS1uYjcxOmVqMm0tbmRlMG52M3pibnAx");
-    myHeaders.append("Access-Control-Allow-Origin", "*");
-    myHeaders.append("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+   // myHeaders.append("Authorization", "Basic dWNkazAyYzYteHdnaS1uYjcxOmVqMm0tbmRlMG52M3pibnAx");
     myHeaders.append("Cookie", "__cf_bm=5172949d9e4beb3484d32203bdd3fb6b57f40310-1622329543-1800-AVyYnMmjiseFvG1zqMf0KDhKcIZx4cdL2LQgWfv/FJ4h/GI+1CH9Q2jyaX7d6yRAVye5LcEDrCNk/SH52hNl+VY=");
-
+    
     var requestOptions = {
-        method: 'GET',
-        headers: myHeaders,
-        redirect: 'follow'
+      method: 'GET',
+      headers: myHeaders,
+      redirect: 'follow'
     };
-
-    fetch("https://api.printful.com/store/products", requestOptions)
-        .then(response => response.text())
-        .then(result => console.log(result))
-        .catch(error => console.log('error', error));
-    // const prodJson = prodResponse.body;
-    // console.log(prodJson);
+    
+    fetch("https://api.printful.com/products", requestOptions)
+      .then(response => response.text())
+      .then(result => console.log(result))
+      .catch(error => console.log('error', error));
+  // const prodJson = prodResponse.body;
+  // console.log(prodJson);
 }
 
 function showStats(asset_id) {
