@@ -34,9 +34,10 @@ App = {
         });
 
         if (localStorage["address"]) {
+            console.log("Address read through localStorage")
             console.log(`${localStorage["address"]}`)
             addr.textContent = localStorage["address"];
-            // App.makeRequest(localStorage["address"]);
+            App.makeRequest(localStorage["address"]);
         } else {
             link.onclick = async() => {
                 console.log("click")
@@ -46,7 +47,7 @@ App = {
                 // Show address visually
                 localStorage["address"] = ethereum.selectedAddress
                 addr.textContent = ethereum.selectedAddress;
-                // App.makeRequest(ethereum.selectedAddress);
+                App.makeRequest(ethereum.selectedAddress);
             }
         }
     },
@@ -69,7 +70,7 @@ App = {
     },
 
     processAssets: (assets) => {
-        var imageTable = document.getElementById('image-table');
+        var imageList = document.getElementById('image-list');
 
         // Otherwise, create image
         for (let i = 0; i < assets.length; i++) {
@@ -81,10 +82,10 @@ App = {
             img.src = asset.image_thumbnail_url;
 
             let a = document.createElement("a");
-            a.href=`javascript:showStats(${asset.id})`
+            a.href=`javascript:showStats(${asset.id})`;
             a.append(img)
 
-            imageTable.append(a) // error
+            imageList.appendChild(a) // error
         }
     }
 }

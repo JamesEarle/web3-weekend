@@ -1,9 +1,39 @@
+/* body {
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+a.nav-link {
+  font-size: x-large;
+}
+
+img {
+  width: 150px;
+} */
+
 .theme-text {
   font-style: italic;
   font-family: auto;
   font-size: large;
-  color: darkmagenta;
+  color: rgb(86,152,207);
 }
+
+.image-list {
+  display: inline-table; 
+}
+
+.nft-image{
+  width: 150px;
+  margin: 35px;
+}
+
+#nft-stats {
+  display: none;
+}
+
 /* .banner-image {
   width: 40px;
 }
@@ -21,8 +51,5 @@
 .highlight-container:hover {
   color: blue;
 }
+*/
 
-.nft-image{
-  width: 150px;
-  margin: 35px;
-} */
