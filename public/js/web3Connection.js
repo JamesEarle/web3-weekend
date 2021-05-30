@@ -49,6 +49,11 @@ App = {
                 // App.makeRequest(ethereum.selectedAddress);
             }
         }
+
+        fetchModelsbutton = document.getElementById("fetchModels");
+        fetchModelsbutton.onclick = async() => {
+            dropshipConnection();
+        }
     },
 
     makeRequest: async (address) => {
@@ -87,6 +92,26 @@ App = {
             imageTable.append(a) // error
         }
     }
+}
+
+function dropshipConnection(){
+    var myHeaders = new Headers();
+    myHeaders.append("Authorization", "Basic dWNkazAyYzYteHdnaS1uYjcxOmVqMm0tbmRlMG52M3pibnAx");
+    myHeaders.append("Access-Control-Allow-Origin", "https://api.printful.com/%22");
+    myHeaders.append("Cookie", "__cf_bm=5172949d9e4beb3484d32203bdd3fb6b57f40310-1622329543-1800-AVyYnMmjiseFvG1zqMf0KDhKcIZx4cdL2LQgWfv/FJ4h/GI+1CH9Q2jyaX7d6yRAVye5LcEDrCNk/SH52hNl+VY=");
+    
+    var requestOptions = {
+      method: 'GET',
+      headers: myHeaders,
+      redirect: 'follow'
+    };
+    
+    fetch("https://api.printful.com/products", requestOptions)
+      .then(response => response.text())
+      .then(result => console.log(result))
+      .catch(error => console.log('error', error));
+  // const prodJson = prodResponse.body;
+  // console.log(prodJson);
 }
 
 function showStats(asset_id) {
