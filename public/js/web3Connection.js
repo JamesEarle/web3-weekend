@@ -119,6 +119,7 @@ function dropshipConnection() {
 
 function showStats(asset_id) {
     let infoTable = document.getElementById("nft-stats")
+    let nftUrl = "";
     for (let i = 0; i < App.assets.length; i++) {
         let asset = App.assets[i];
         if (asset.id == asset_id) {
@@ -136,6 +137,17 @@ function showStats(asset_id) {
 
             let permalink = document.getElementById("permalink")
             permalink.textContent = asset.permalink;
+
+            // Set in preview
+            nftUrl = asset.image_thumbnail_url;
+
+            let tshirt = document.getElementById("tshirt-preview");
+            tshirt.src = nftUrl;
+            tshirt.srcset = nftUrl;
+
+            let hoodie = document.getElementById("hoodie-preview");
+            hoodie.src = nftUrl;
+            hoodie.srcset = nftUrl;
         }
     }
     infoTable.style.display = "block";
