@@ -96,7 +96,7 @@ App = {
 
 function dropshipConnection(){
     var myHeaders = new Headers();
-    myHeaders.append("Authorization", "Basic dWNkazAyYzYteHdnaS1uYjcxOmVqMm0tbmRlMG52M3pibnAx");
+   // myHeaders.append("Authorization", "Basic dWNkazAyYzYteHdnaS1uYjcxOmVqMm0tbmRlMG52M3pibnAx");
     myHeaders.append("Cookie", "__cf_bm=5172949d9e4beb3484d32203bdd3fb6b57f40310-1622329543-1800-AVyYnMmjiseFvG1zqMf0KDhKcIZx4cdL2LQgWfv/FJ4h/GI+1CH9Q2jyaX7d6yRAVye5LcEDrCNk/SH52hNl+VY=");
     
     var requestOptions = {
