@@ -13,7 +13,9 @@ a.nav-link {
 img {
   width: 150px;
 } */
-
+td {
+  padding: 5px;
+}
 .theme-text {
   font-style: italic;
   font-family: auto;
@@ -23,6 +25,13 @@ img {
 
 .image-list {
   display: inline-table; 
+}
+
+.theme-table {
+  background-color: aliceblue;
+  margin-left: 15%;
+  margin-right: 15%;
+  margin-bottom: 100px;
 }
 
 .nft-image{

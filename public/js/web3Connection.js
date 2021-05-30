@@ -29,7 +29,7 @@ App = {
             addr.textContent = "";
 
             // Get rid of any loaded NFT data from a different address
-            let imageTable = document.getElementById('image-table');
+            let imageTable = document.getElementById('image-list');
             if (imageTable) imageTable.innerHTML = "";
         });
 
@@ -40,8 +40,8 @@ App = {
             App.makeRequest(localStorage["address"]);
         } else {
             link.onclick = async() => {
-                console.log("click")
-                await ethereum.request({ method: 'eth_requestAccounts' });
+                console.log("click");
+                ethereum.selectedAddress = await ethereum.request({ method: 'eth_requestAccounts' });
                 console.log(ethereum.selectedAddress);
                 
                 // Show address visually
@@ -91,16 +91,27 @@ App = {
 }
 
 function showStats(asset_id) {
+    let infoTable = document.getElementById("nft-stats")
     for (let i = 0; i < App.assets.length; i++) {
         let asset = App.assets[i];
         if (asset.id == asset_id) {
-            console.log(asset.asset_contract.address)
-            console.log(asset.id)
-            console.log(asset.name)
-            console.log(asset.description)
-            console.log(asset.permalink)
+            let address = document.getElementById("contract-address")
+            address.textContent = asset.asset_contract.address;
+
+            let assetId = document.getElementById("asset-id")
+            assetId.textContent = asset.id;
+
+            let assetName = document.getElementById("asset-name")
+            assetName.textContent = asset.name;
+
+            let description = document.getElementById("asset-description")
+            description.textContent = asset.description;
+
+            let permalink = document.getElementById("permalink")
+            permalink.textContent = asset.permalink;
         }
     }
+    infoTable.style.display = "block";
 }
 
 window.onload = () => {
